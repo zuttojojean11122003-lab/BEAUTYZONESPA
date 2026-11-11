@@ -73,7 +73,7 @@ textarea{width:100%;padding:12px;border-radius:8px;border:1px solid var(--line);
   </div>
   <div class="actions" style="margin-top:12px">
     <a class="btn ghost" href="#book">Pick a day and time</a>
-    <a class="btn ghost" href="tel:0777799977">Call us</a>
+    <a class="btn ghost" href="tel:+231777799977">Call us</a>
   </div>
   <p class="note">Professional, clean, safe and affordable. Popular times fill up each day, so book yours now.</p>
 
@@ -105,14 +105,14 @@ textarea{width:100%;padding:12px;border-radius:8px;border:1px solid var(--line);
     <span class="note">We will reply when we are free.</span>
   </form>
 
-  <div class="sticky"><a class="btn primary" href="#book">Book now</a><a class="btn ghost" href="tel:0777799977">Call</a></div>
+  <div class="sticky"><a class="btn primary" href="#book">Book now</a><a class="btn ghost" href="tel:+231777799977">Call</a></div>
 
   <h2>Find us</h2>
   <div class="info">
     <p><b>2nd Street, Sinkor</b>, opposite City Hall, Dunes Residence, 2nd Floor</p>
     <p>Monday to Saturday: 11:00 AM – 8:00 PM</p>
     <p>Sunday: 11:00 AM – 3:00 PM</p>
-    <p>Call: <a href="tel:0777799977" style="color:var(--accent)">0777 799 977</a> or <a href="tel:0777799978" style="color:var(--accent)">0777 799 978</a></p>
+    <p>Call: <a href="tel:+231777799977" style="color:var(--accent)">0777 799 977</a> or <a href="tel:+231777799978" style="color:var(--accent)">0777 799 978</a></p>
   </div>
 </div>
 
@@ -160,7 +160,7 @@ menu.addEventListener("click",function(e){
   document.getElementById("book").scrollIntoView({behavior:"smooth"});
 });
 // BOOKED TIMES: the owner adds confirmed bookings here, e.g. "2026-10-30":["14:00","16:00"]
-var BOOKED = {"2026-10-28":["15:00","18:00"]};
+var BOOKED = {"2026-11-11":["11:00","18:00"]};
 // OPTIONAL: paste your published Google Sheet CSV link between the quotes so staff can update the calendar without re-uploading this page
 var SHEET_CSV = "";
 function nd(s){s=s.trim();var m=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);if(!m)return s;var a=+m[1],b=+m[2];if(a>12){var t=a;a=b;b=t}return m[3]+"-"+pad(a)+"-"+pad(b)}
@@ -236,9 +236,11 @@ document.getElementById("form").addEventListener("submit",function(e){
   e.preventDefault();
   if(!dayEl.value){noteEl.textContent="Please tap a day on the calendar first.";return}
   if(!chosen){noteEl.textContent="Please tap a time to continue.";return}
-  var h=+chosen.slice(0,2);
-  var msg="Hello Beauty Zone & Spa! I would like to book.\nName: "+document.getElementById("name").value+"\nService: "+sel.value+"\nDay: "+dayEl.value+"\nTime: "+fmt(h);
-  window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(msg),"_blank");
+  var h=+chosen.slice(0,2),nm=document.getElementById("name").value,f=e.target;
+  var text="Hello Beauty Zone & Spa! I would like to book.\nName: "+nm+"\nService: "+sel.value+"\nDay: "+dayEl.value+"\nTime: "+fmt(h);
+  var wa="https://wa.me/"+WA+"?text="+encodeURIComponent(text);
+  window.open(wa,"_blank");
+  f.innerHTML='<b>Last step: send it on WhatsApp \u2728</b><p>WhatsApp should open with your booking typed in. Tap <b>Send</b> to finish. Your booking is not complete until you send it.</p><p><b>'+esc(sel.value)+'</b><br>'+esc(dayEl.value)+' at '+esc(fmt(h))+'</p><a class="btn primary" href="'+wa+'" target="_blank" rel="noopener">Open WhatsApp</a> <a class="btn ghost" href="tel:+231777799977">Or call us</a>';
 });
 </script>
 </body>
